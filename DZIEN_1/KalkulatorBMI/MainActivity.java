@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText masa = (EditText) findViewById(R.id.etMasa);
         final EditText wzrost = (EditText) findViewById(R.id.etWzrost);
         final TextView wyn = (TextView) findViewById(R.id.wynik);
+        final TextView op = (TextView) findViewById(R.id.opis);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +30,19 @@ public class MainActivity extends AppCompatActivity {
                 WynikBMI obmi = new WynikBMI(m,w);
                 bmi = obmi.obliczBMI(m,w);
                 wyn.setText("Twoje BMI wynosi: " + bmi);
+
+                if(bmi<18.5)
+                    op.setText("Masz niedowagę!");
+                else if (bmi<25)
+                    op.setText("Masz prawidłową wagę!");
+                else if (bmi<30)
+                    op.setText("Masz nadwagę!");
+                else if (bmi<35)
+                    op.setText("Masz otyłość I stopnia!");
+                else if (bmi<40)
+                    op.setText("Masz otyłość II stopnia!");
+                else
+                    op.setText("Masz otyłość III stopnia!");
             }
         });
     }
