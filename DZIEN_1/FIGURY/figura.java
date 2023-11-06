@@ -8,6 +8,10 @@ public abstract class Figura {
         this.a = a;
         this.b = b;
     }
-    
+
+    public Figura(double a) {
+        this.a = a;
+    }
+
     public abstract double policzPole();
 }
