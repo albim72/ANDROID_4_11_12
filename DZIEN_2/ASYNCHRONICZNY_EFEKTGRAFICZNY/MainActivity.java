@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         stan.setVisibility(ProgressBar.INVISIBLE);
 
     }
-    
+
     public void kliknieto_start(View v){
         Proces p = new Proces();
         p.execute();
@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
             Paint p = new Paint();
             p.setStyle(Paint.Style.STROKE);
             Random rand = new Random();
-            
+
             for(nr=0;nr<ile;nr++){
                 x=rand.nextInt(szer);
                 y=rand.nextInt(wys);
                 kolor = bmp.getPixel(x,y);
-                
+
                 p.setColor(kolor);
                 c.drawLine(x-d,y-d,x+d,y+d,p);
                 c.drawLine(x-d,y+d,x+d,y-d,p);
@@ -73,7 +73,35 @@ public class MainActivity extends AppCompatActivity {
             p.setColor(Color.WHITE);
             c.drawRect(0,0,szer-1,wys-1,p);
             return null;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
             
+            stan.setVisibility(ProgressBar.VISIBLE);
+            przycisk.setEnabled(false);
+            
+        }
+
+        @Override
+        protected void onPostExecute(Void values) {
+            super.onPostExecute(values);
+            
+            obraz.setImageBitmap(bmp);
+            przycisk.setEnabled(true);
+            napis.setText("koniec przetwarzania!");
+            stan.setVisibility(ProgressBar.INVISIBLE);
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            
+            napis.setText("Stan: " + nr + "/" + ile);
+            if(nr%1000 == 0)
+                obraz.setImageBitmap(bmp);
         }
     }
 }
