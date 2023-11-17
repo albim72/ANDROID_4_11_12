@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import kotlin.text.UStringsKt;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -60,4 +63,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
 
     }
+
+    public List<Contact> getAllContacts(){
+        List<Contact> contactList = new ArrayList<Contact>();
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + ";";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        if (cursor.moveToFirst()){
+            do{
+                Contact contact = new Contact();
+                contact.setId(Integer.parseInt(cursor.getString(0)));
+                contact.setName(cursor.getString(1));
+                contact.setPhone(cursor.getString(2));
+                contactList.add(contact);
+            }while (cursor.moveToNext());
+        }
+        return contactList;
+    }
+    
+    public int updateContact(Contact contact){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME,contact.getName());
+        values.put(KEY_PH_NO,contact.getPhone());
+        
+        return db.update(TABLE_NAME,values,KEY_ID + "=",
+                new String[]{String.valueOf(contact.getId())});
+    }
+    
+    public void deleteContact(Contact contact){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME,KEY_ID + "=", new String[]{String.valueOf(contact.getId())});
+        db.close();
+    }
+    
+    public int getContactsCount() {
+        String countQuery = "SELECT * FROM " + TABLE_NAME + ";";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery,null);
+        cursor.close();
+        return cursor.getCount();
+    }
+
 }
