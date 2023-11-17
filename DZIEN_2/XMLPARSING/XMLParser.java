@@ -37,7 +37,7 @@ public class XMLParser extends DefaultHandler {
             list.add(jobsValues);
         }
         else if(localName.equalsIgnoreCase("status")){
-            
+
         }
         else if(localName.equalsIgnoreCase("id")){
             jobsValues.setId(Integer.parseInt(builder.toString()));
@@ -69,5 +69,12 @@ public class XMLParser extends DefaultHandler {
         else if(localName.equalsIgnoreCase("date")){
             jobsValues.setDate(builder.toString());
         }
+    }
+
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        super.characters(ch, start, length);
+        String tempString = new String(ch,start,length);
+        builder.append(tempString);
     }
 }
