@@ -117,7 +117,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    
+
+
     public void doSmoothScroll(int position) {
         recyclerView.smoothScrollToPosition(position);
     }
+
+
+
+public class GetOrCreateCardsListTask extends AsyncTask<Void, Void, ArrayList<Card>> {
+    @Override
+    protected ArrayList<Card> doInBackground(Void... params) {
+        cardsData.open();
+        cardsList = cardsData.getAll();
+        if (cardsList.size() == 0) {
+            for (int i = 0; i < 50; i++) {
+                Card card = new Card();
+                card.setName(names[i]);
+                card.setColorResource(colors[i]);
+                cardsList.add(card);
+                cardsData.create(card);
+                Log.d(DEBUG_TAG, "Karta o identyfikatorze " + card.getId() + ", imię: " + card.getName() + ", kolor: " + card.getColorResource());
+            }
+        }
+        return cardsList;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Card> cards) {
+        super.onPostExecute(cards);
+        adapter = new SampleMaterialAdapter(SampleMaterialActivity.this, cardsList, cardsData);
+        recyclerView.setAdapter(adapter);
+    }
+}
 }
