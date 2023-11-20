@@ -1,20 +1,24 @@
+package com.marcin.cardssql;
+
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -34,7 +38,7 @@ public class SampleMaterialAdapter extends RecyclerView.Adapter<SampleMaterialAd
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         String name = cardsList.get(position).getName();
-        int color = cardsList.get(position).getColorResource();
+        int color = cardsList.get(position).getColor_resources();
         TextView initial = viewHolder.initial;
         TextView nameTextView = viewHolder.name;
         nameTextView.setText(name);
@@ -88,7 +92,7 @@ public class SampleMaterialAdapter extends RecyclerView.Adapter<SampleMaterialAd
     public void addCard(String name, int color) {
         Card card = new Card();
         card.setName(name);
-        card.setColorResource(color);
+        card.setColor_resources(color);
         new CreateCardTask().execute(card);
     }
 
@@ -146,9 +150,9 @@ public class SampleMaterialAdapter extends RecyclerView.Adapter<SampleMaterialAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Pair<View, String> p1 = Pair.create((View) initial, SampleMaterialActivity.TRANSITION_INITIAL);
-                    Pair<View, String> p2 = Pair.create((View) name, SampleMaterialActivity.TRANSITION_NAME);
-                    Pair<View, String> p3 = Pair.create((View) deleteButton, SampleMaterialActivity.TRANSITION_DELETE_BUTTON);
+                    Pair<View, String> p1 = Pair.create((View) initial, MainActivity.TRANSITION_INITIAL);
+                    Pair<View, String> p2 = Pair.create((View) name, MainActivity.TRANSITION_NAME);
+                    Pair<View, String> p3 = Pair.create((View) deleteButton, MainActivity.TRANSITION_DELETE_BUTTON);
 
                     ActivityOptionsCompat options;
                     AppCompatActivity act = (AppCompatActivity) context;
@@ -156,16 +160,16 @@ public class SampleMaterialAdapter extends RecyclerView.Adapter<SampleMaterialAd
 
                     int requestCode = getAdapterPosition();
                     String name = cardsList.get(requestCode).getName();
-                    int color = cardsList.get(requestCode).getColorResource();
+                    int color = cardsList.get(requestCode).getColor_resources();
 
                     Log.d(DEBUG_TAG, "SampleMaterialAdapter klinięto w celu edycji, pozycja elementu: " + requestCode);
 
                     Intent transitionIntent = new Intent(context, TransitionEditActivity.class);
-                    transitionIntent.putExtra(SampleMaterialActivity.EXTRA_NAME, name);
-                    transitionIntent.putExtra(SampleMaterialActivity.EXTRA_INITIAL, Character.toString(name.charAt(0)));
-                    transitionIntent.putExtra(SampleMaterialActivity.EXTRA_COLOR, color);
-                    transitionIntent.putExtra(SampleMaterialActivity.EXTRA_UPDATE, false);
-                    transitionIntent.putExtra(SampleMaterialActivity.EXTRA_DELETE, false);
+                    transitionIntent.putExtra(MainActivity.EXTRA_NAME, name);
+                    transitionIntent.putExtra(MainActivity.EXTRA_INITIAL, Character.toString(name.charAt(0)));
+                    transitionIntent.putExtra(MainActivity.EXTRA_COLOR, color);
+                    transitionIntent.putExtra(MainActivity.EXTRA_UPDATE, false);
+                    transitionIntent.putExtra(MainActivity.EXTRA_DELETE, false);
                     ((AppCompatActivity) context).startActivityForResult(transitionIntent, requestCode, options.toBundle());
                 }
             });
