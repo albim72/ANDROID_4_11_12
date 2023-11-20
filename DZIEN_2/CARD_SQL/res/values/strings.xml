@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Bazy danych SQLite</string>
+    <string name="add_button">Dodaj</string>
+    <string name="update_button">Zmień</string>
+    <string name="delete_button">Usuń</string>
+    <string name="fab">Dodaj przyjaciela</string>
+    <string name="title_activity_transition_edit">Edycja kontaktu</string>
+    <string name="title_activity_transition_add">Dodawanie kontaktu</string>
+
+    <string-array name="names_array">
+        <item>Michał</item>
+        <item>Janka</item>
+        <item>Krzysiek</item>
+        <item>Anna</item>
+        <item>Janek</item>
+        <item>Marcelina</item>
+        <item>Dawid</item>
+        <item>Michasia</item>
+        <item>Jurek</item>
+        <item>Katarzyna</item>
+        <item>Joachim</item>
+        <item>Liza</item>
+        <item>Robert</item>
+        <item>Angela</item>
+        <item>Bartek</item>
+        <item>Hieronim</item>
+        <item>Wilhelm</item>
+        <item>Stefa</item>
+        <item>Maciek</item>
+        <item>Nikola</item>
+        <item>Jasiek</item>
+        <item>Joanna</item>
+        <item>Daniel</item>
+        <item>Ela</item>
+        <item>Krystian</item>
+        <item>Rebeka</item>
+        <item>Eryk</item>
+        <item>Krystyna</item>
+        <item>Jakub</item>
+        <item>Maria</item>
+        <item>Ryszard</item>
+        <item>Krystyna</item>
+        <item>Stefania</item>
+        <item>Amanda</item>
+        <item>Marek</item>
+        <item>Julia</item>
+        <item>Tomasz</item>
+        <item>Laura</item>
+        <item>Tymon</item>
+        <item>Sylwia</item>
+        <item>Antek</item>
+        <item>Kornelia</item>
+        <item>Karol</item>
+        <item>Tomek</item>
+        <item>Ireneusz</item>
+        <item>Witold</item>
+        <item>Roman</item>
+        <item>Bartek</item>
+        <item>Darek</item>
+        <item>Danuta</item>
+    </string-array>
+</resources>
