@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    
+
 
 
     public void doSmoothScroll(int position) {
@@ -135,7 +136,7 @@ public class GetOrCreateCardsListTask extends AsyncTask<Void, Void, ArrayList<Ca
             for (int i = 0; i < 50; i++) {
                 Card card = new Card();
                 card.setName(names[i]);
-                card.setColorResource(colors[i]);
+                card.setColor_resources(colors[i]);
                 cardsList.add(card);
                 cardsData.create(card);
                 Log.d(DEBUG_TAG, "Karta o identyfikatorze " + card.getId() + ", imię: " + card.getName() + ", kolor: " + card.getColorResource());
@@ -147,7 +148,7 @@ public class GetOrCreateCardsListTask extends AsyncTask<Void, Void, ArrayList<Ca
     @Override
     protected void onPostExecute(ArrayList<Card> cards) {
         super.onPostExecute(cards);
-        adapter = new SampleMaterialAdapter(SampleMaterialActivity.this, cardsList, cardsData);
+        adapter = new SampleMaterialAdapter(MainActivity.this, cardsList, cardsData);
         recyclerView.setAdapter(adapter);
     }
 }
