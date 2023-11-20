@@ -24,6 +24,12 @@ public class CardsData {
     public CardsData(Context context) {
         this.cardDGHelper = new CardsDBHelper(context);
     }
+
+    
+    public void open(){
+        db = cardDGHelper.getWritableDatabase();
+        Log.d(DEBUG_TAG,"cardDBHelper - otworzono...");
+    }
     
     public void close(){
         if(cardDGHelper != null){
@@ -35,7 +41,7 @@ public class CardsData {
     public ArrayList<Card> getAll() {
         ArrayList<Card> cards = new ArrayList<>();
         Cursor cursor = null;
-        
+
         try{
             cursor = db.query(CardsDBHelper.TABLE_CARDS, COLUMNS,null,null,null,null,null);
             if(cursor.getCount()>0){
@@ -48,7 +54,7 @@ public class CardsData {
                 }
             }
             Log.d(DEBUG_TAG,"Sumaryczna liczba wierszy = " + cursor.getCount());
-            
+
         }catch (Exception e){
             Log.d(DEBUG_TAG,"zgłoszono wyjątek.." + e);
         }
@@ -58,8 +64,8 @@ public class CardsData {
             }
         }
         return cards;
-    } 
-    
+    }
+
     public Card create(Card card){
         ContentValues values = new ContentValues();
         values.put(CardsDBHelper.COLUMN_NAME,card.getName());
@@ -76,7 +82,7 @@ public class CardsData {
         values.put(CardsDBHelper.COLUMN_NAME,name);
         db.update(CardsDBHelper.TABLE_CARDS,values,whereClause,null);
     }
-    
+
     public void delete(long cardId){
         String whereClause = CardsDBHelper.COLUMN_ID + "=" + cardId;
         Log.d(DEBUG_TAG,"Usunięto kartę na pozycji: " + String.valueOf(cardId));
