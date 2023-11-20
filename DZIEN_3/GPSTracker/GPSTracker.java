@@ -1,13 +1,16 @@
 package com.marcin.gpstracker;
 
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -115,6 +118,31 @@ public class GPSTracker extends Service implements LocationListener {
             longitude = location.getLongitude();
         }
         return longitude;
+    }
+    
+    public boolean canGetLocation(){
+        return this.canGetLocation;
+    }
+    //funkcja opidująca ustawienia okna alertowego!
+    public void showSettingsAlert(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+        alertDialog.setTitle("GPS is settings!");
+        alertDialog.setMessage("GPS is not enabled. Do yoy want to go to settings menu?");
+        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                mContext.startActivity(intent);
+            }
+        });
+        
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+               dialog.cancel();
+            }
+        });
+        alertDialog.show();
     }
 
     @Nullable
