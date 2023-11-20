@@ -13,10 +13,10 @@ public class CardsDBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "cards.db";
     private static final int DB_VERSION = 1;
 
-    private static final String TABLE_CARDS = "CARDS";
-    private static final String COLUMN_ID = "_ID";
-    private static final String COLUMN_NAME = "NAME";
-    private static final String COLUMN_COLOR_RESOURCE = "COLOR_RESOURCE";
+    public static final String TABLE_CARDS = "CARDS";
+    public static final String COLUMN_ID = "_ID";
+    public static final String COLUMN_NAME = "NAME";
+    public static final String COLUMN_COLOR_RESOURCE = "COLOR_RESOURCE";
 
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_CARDS + " (" +
