@@ -187,7 +187,7 @@ public class SampleMaterialAdapter extends RecyclerView.Adapter<SampleMaterialAd
         @Override
         protected void onPostExecute(Card card) {
             super.onPostExecute(card);
-            ((SampleMaterialActivity) context).doSmoothScroll(getItemCount() - 1);
+            ((MainActivity) context).doSmoothScroll(getItemCount() - 1);
             notifyItemInserted(getItemCount());
             Log.d(DEBUG_TAG, "Utworzono kartę o identyfikatorze " + card.getId() + ", imię: " + card.getName() + ", kolor: " + card.getColorResource());
         }
