@@ -1,9 +1,17 @@
 package com.marcin.cardssql;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
+import android.view.View;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -48,12 +56,26 @@ public class MainActivity extends AppCompatActivity {
                 Pair<View, String> pair = Pair.create(v.findViewById(R.id.fab), TRANSITION_FAB);
 
                 ActivityOptionsCompat options;
-                Activity act = SampleMaterialActivity.this;
+                Activity act = MainActivity.this;
                 options = ActivityOptionsCompat.makeSceneTransitionAnimation(act, pair);
 
                 Intent transitionIntent = new Intent(act, TransitionAddActivity.class);
                 act.startActivityForResult(transitionIntent, adapter.getItemCount(), options.toBundle());
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cardsData.open();
+        Log.d(DEBUG_TAG, "cardsData otworzno w metodzie onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cardsData.close();
+        Log.d(DEBUG_TAG, "cardsData zamknięto w metodzie onPause()");
     }
 }
