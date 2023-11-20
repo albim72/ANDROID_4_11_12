@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import android.util.Log;
-import android.util.Pair;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -136,9 +137,9 @@ public class SampleMaterialAdapter extends RecyclerView.Adapter<SampleMaterialAd
 
         public ViewHolder(View v) {
             super(v);
-            initial = (TextView) v.findViewById(R.id.initial);
-            name = (TextView) v.findViewById(R.id.name);
-            deleteButton = (Button) v.findViewById(R.id.delete_button);
+            initial = (TextView) v.findViewById(R.id.initialcard);
+            name = (TextView) v.findViewById(R.id.name_card);
+            deleteButton = (Button) v.findViewById(R.id.button2);
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -157,6 +158,7 @@ public class SampleMaterialAdapter extends RecyclerView.Adapter<SampleMaterialAd
                     ActivityOptionsCompat options;
                     AppCompatActivity act = (AppCompatActivity) context;
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(act, p1, p2, p3);
+
 
                     int requestCode = getAdapterPosition();
                     String name = cardsList.get(requestCode).getName();
@@ -189,7 +191,7 @@ public class SampleMaterialAdapter extends RecyclerView.Adapter<SampleMaterialAd
             super.onPostExecute(card);
             ((MainActivity) context).doSmoothScroll(getItemCount() - 1);
             notifyItemInserted(getItemCount());
-            Log.d(DEBUG_TAG, "Utworzono kartę o identyfikatorze " + card.getId() + ", imię: " + card.getName() + ", kolor: " + card.getColorResource());
+            Log.d(DEBUG_TAG, "Utworzono kartę o identyfikatorze " + card.getId() + ", imię: " + card.getName() + ", kolor: " + card.getColor_resources());
         }
     }
 
