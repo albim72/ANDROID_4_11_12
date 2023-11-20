@@ -29,22 +29,22 @@ public class TransitionAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition_add);
-        
+
         nameEditText = (EditText) findViewById(R.id.name);
         initialTextView = (TextView) findViewById(R.id.initial);
         Button add_button = (Button) findViewById(R.id.button);
-        
+
         intent = getIntent();
         int[] colors = getResources().getIntArray(R.array.initial_colors);
         color = colors[randomGenerator.nextInt(50)];
-        
+
         initialTextView.setText("");
         initialTextView.setBackgroundColor(color);
-        
+
         nameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int before, int count) {
-                
+
             }
 
             @Override
@@ -62,7 +62,7 @@ public class TransitionAddActivity extends AppCompatActivity {
 
             }
         });
-        
+
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,8 +71,12 @@ public class TransitionAddActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Podaj prawidłowe imię",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    intent.putExtra();
-                    //to część instrukcji będzie uzupełniona w momencie opisania innych aktywności
+                    intent.putExtra(MainActivity.EXTRA_NAME,String.valueOf(nameEditText.getText()));
+                    intent.putExtra(MainActivity.EXTRA_INITIAL,String.valueOf(nameEditText.getText().charAt(0)));
+                    intent.putExtra(MainActivity.EXTRA_COLOR,color);
+                    setResult(RESULT_OK,intent);
+                    supportFinishAfterTransition();
+                    
                 }
             }
         });
