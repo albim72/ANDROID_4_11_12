@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         // Wszelkie zwrócone wartości mniejsze od adapter.getItemCount() oznaczają edycję istniejącego elementu.
         if (requestCode == adapter.getItemCount()) {
             if (resultCode == RESULT_OK) {
-                // Upewniamy się, że żądanie dodania zakończyło się pomyślnie. W takim przypadku 
+                // Upewniamy się, że żądanie dodania zakończyło się pomyślnie. W takim przypadku
                 // dodajemy imię i aktualizujemy listę.
                 String name = data.getStringExtra(EXTRA_NAME);
                 int color = data.getIntExtra(EXTRA_COLOR, 0);
