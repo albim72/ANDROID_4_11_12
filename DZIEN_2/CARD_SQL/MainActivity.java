@@ -1,8 +1,11 @@
 package com.marcin.cardssql;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,5 +33,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        names = getResources().getStringArray(R.array.names_array);
+        colors = getResources().getIntArray(R.array.initial_colors);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        new GetOrCreateCardsListTask().execute();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pair<View, String> pair = Pair.create(v.findViewById(R.id.fab), TRANSITION_FAB);
+
+                ActivityOptionsCompat options;
+                Activity act = SampleMaterialActivity.this;
+                options = ActivityOptionsCompat.makeSceneTransitionAnimation(act, pair);
+
+                Intent transitionIntent = new Intent(act, TransitionAddActivity.class);
+                act.startActivityForResult(transitionIntent, adapter.getItemCount(), options.toBundle());
+            }
+        });
     }
 }
