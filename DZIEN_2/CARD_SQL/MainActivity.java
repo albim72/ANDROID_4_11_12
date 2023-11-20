@@ -79,4 +79,45 @@ public class MainActivity extends AppCompatActivity {
         cardsData.close();
         Log.d(DEBUG_TAG, "cardsData zamknięto w metodzie onPause()");
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        cardsData.open();
+        Log.d(DEBUG_TAG, "requestCode ma wartość " + requestCode);
+        // Jeśli wywołanie adapter.getItemCount() zaróci kod żądania, będzie to oznaczać, że dodajemy nową pozycję.
+        // Wszelkie zwrócone wartości mniejsze od adapter.getItemCount() oznaczają edycję istniejącego elementu.
+        if (requestCode == adapter.getItemCount()) {
+            if (resultCode == RESULT_OK) {
+                // Upewniamy się, że żądanie dodania zakończyło się pomyślnie. W takim przypadku 
+                // dodajemy imię i aktualizujemy listę.
+                String name = data.getStringExtra(EXTRA_NAME);
+                int color = data.getIntExtra(EXTRA_COLOR, 0);
+                int newPosition = adapter.getItemCount();
+                Log.d(DEBUG_TAG, "newPosition = " + newPosition);
+                adapter.addCard(name, color);
+            }
+        } else {
+            // Jakakolwiek wartośc różna od adapter.getItemCount() oznacza edycję istniejącego elementu listy,
+            // wartość requestCode określa położenie elementu na liście.
+            if (resultCode == RESULT_OK) {
+                // Upewniamy się, że żądanie aktualizacji zostało wykonane prawidłowo.
+                RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(requestCode);
+                if (data.getExtras().getBoolean(EXTRA_DELETE, false)) {
+                    // Jeśli zażądano usunięcia, to usuwamy.
+                    // Użytkownik usunął kontakt.
+                    adapter.deleteCard(viewHolder.itemView, requestCode);
+                } else if (data.getExtras().getBoolean(EXTRA_UPDATE)) {
+                    // Imię uległo zmianie, aktualizujemy użytkownika.
+                    String name = data.getStringExtra(EXTRA_NAME);
+                    viewHolder.itemView.setVisibility(View.INVISIBLE);
+                    adapter.updateCard(name, requestCode);
+                }
+            }
+        }
+    }
+
+    public void doSmoothScroll(int position) {
+        recyclerView.smoothScrollToPosition(position);
+    }
 }
