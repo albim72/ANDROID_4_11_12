@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,5 +45,23 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(this, "sieć OK!", Toast.LENGTH_SHORT).show();
         return true;
+    }
+
+    public void downloadAndShowImage(View view){
+        boolean networkOK = this.checkInternetConnection();
+        if(!networkOK){return;}
+        String imageUrl = "https://github.com/albim72/myandroiddata/blob/main/kostki.png";
+
+        DownloadImageTask task = new DownloadImageTask(this.imageView);
+        task.execute(imageUrl);
+    }
+
+    public void downloadAndShowJson(View view){
+        boolean networkOK = this.checkInternetConnection();
+        if(!networkOK){return;}
+        String jsonUrl = "https://github.com/albim72/myandroiddata/blob/main/pracownik.json";
+
+        DownloadJsonTask task = new DownloadJsonTask(this.textView);
+        task.execute(jsonUrl);
     }
 }
