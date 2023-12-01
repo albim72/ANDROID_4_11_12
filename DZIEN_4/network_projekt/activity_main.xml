@@ -33,14 +33,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Pobierz obraz" />
+                android:text="Pobierz obraz"
+                android:onClick="downloadAndShowImage"/>
 
             <Button
                 android:id="@+id/btnText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Pobierz JSON" />
+                android:text="Pobierz JSON"
+                android:onClick="downloadAndShowJson"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
