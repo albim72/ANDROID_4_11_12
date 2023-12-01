@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         GetServerData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String serverURL = "http://androidexample.com/media/webservice/JsonReturn.php";
+                String serverURL = "https://androidexample.com/media/webservice/JsonReturn.php";
                 new LongOperation().execute(serverURL);
             }
         });
@@ -94,13 +94,13 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            finally {
-                try{
-                    reader.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+//            finally {
+//                try{
+//                    reader.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
             return null;
         }
 
