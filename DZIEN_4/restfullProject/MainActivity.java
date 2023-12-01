@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String serverURL = "http://androidexample.com/media/webservice/JsonReturn.php";
+                new LongOperation().execute(serverURL);
             }
         });
     }
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             Dialog.setMessage("Zaczekaj....");
             Dialog.show();
-            
+
             try{
                 data += "&" + URLEncoder.encode("data","UTF-8") + "=" + serverText.getText();
             } catch (UnsupportedEncodingException e) {
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
                 wr.write(data);
                 wr.flush();
-                
+
                 reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String line = null;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     sb.append(line+"\n");
                 }
                 Content = sb.toString();
-                
+
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -119,11 +120,11 @@ public class MainActivity extends AppCompatActivity {
                     int lengthJsonArr = jsonResponse.length();
                     for(int i=0; i<lengthJsonArr;i++){
                         JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                        
+
                         String name = jsonChildNode.optString("name").toString();
                         String number = jsonChildNode.optString("number").toString();
                         String date_added = jsonChildNode.optString("date_added").toString();
-                        
+
                         OutputData += " Name        :" + name +"\n"
                                 + " Number      :" + number + "\n"
                                 + " Time        :" + date_added + "\n__________________________________________\n";
