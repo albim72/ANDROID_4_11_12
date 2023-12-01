@@ -12,12 +12,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DownloadJsonTask extends AsyncTask {
+public class DownloadJsonTask extends AsyncTask<String,Void,String> {
     private TextView textView;
-    
+
     @Override
-    protected Object doInBackground(Object[] params) {
-        String textUrl = (String)params[0];
+    protected String doInBackground(String... params) {
+        String textUrl = params[0];
 
         InputStream in = null;
         BufferedReader br = null;
@@ -27,12 +27,12 @@ public class DownloadJsonTask extends AsyncTask {
             httpConn.setAllowUserInteraction(false);
             httpConn.setRequestMethod("GET");
             httpConn.connect();
-            
+
             int resCode = httpConn.getResponseCode();
             if (resCode == HttpURLConnection.HTTP_OK){
                 in = httpConn.getInputStream();
                 br = new BufferedReader(new InputStreamReader(in));
-                
+
                 StringBuilder sb = new StringBuilder();
                 String s = null;
                 while ((s=br.readLine()) != null){
@@ -55,13 +55,12 @@ public class DownloadJsonTask extends AsyncTask {
     }
 
     @Override
-    protected void onPostExecute(Object result) {
+    protected void onPostExecute(String result) {
         if(result!=null){
-            this.textView.setText((String)result);
+            this.textView.setText(result);
         }else{
             Log.e("MyMessage","Błąd!");
-                    
+
         }
     }
 }
-
